@@ -2,7 +2,18 @@
 
 import re
 from dataclasses import MISSING, fields
-from itertools import batched
+
+import sys
+if sys.version_info >= (3, 12):
+    from itertools import batched
+else:
+    try:
+        from more_itertools import batched
+    except ImportError:
+        raise ImportError(
+            "The 'batched' function requires Python 3.12 or the 'more-itertools' package. "
+            "Please upgrade your Python version or install 'more-itertools' using 'pip install more-itertools'."
+        )
 from typing import Any, Callable, Sequence, TypeVar
 
 from pydantic import BaseModel
